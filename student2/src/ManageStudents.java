@@ -1,7 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.*;
+import java.util.LinkedList;
 public class ManageStudents {
 
 	public static void main(String[] args) {
@@ -124,27 +124,25 @@ public class ManageStudents {
 					}
 				}
 				
+				//업데이트
 				else if(kk.equals("u")) {
 					number=args[2];
-					name=args[3].equals("-")? s.name:args[3];
-					gender=args[4].equals("-")? Character.toString(s.gender):args[4];
-					phone_no=args[5].equals("-")? s.phone_no:args[5];
-					address=args[6].equals("-")? s.address:args[6];
 					if(s.number.equals(number)) {
+						name=args[3].equals("-")? s.name:args[3];
+						gender=args[4].equals("-")? Character.toString(s.gender):args[4];
+						phone_no=args[5].equals("-")? s.phone_no:args[5];
+						address=args[6].equals("-")? s.address:args[6];
+						
 						RandomAccessFile dout = new RandomAccessFile(in_f, "rw");
 						found=true;
-						System.out.println(din.getFilePointer()-size-4);
-						System.out.println(dout.getFilePointer());
-						System.out.println("[" + size + " bytes] " + s);
 					int sizeu=number.getBytes().length+name.getBytes().length+gender.getBytes().length+phone_no.getBytes().length+address.getBytes().length;
 					
 					if(sizeu<=size-5) {
-						dout.seek(din.getFilePointer()-size-4);
+						dout.seek(din.getFilePointer()-size);
 						s.name=name;
 						s.gender=gender.charAt(0);
 						s.phone_no=phone_no;
 						s.address=address;
-						System.out.println("[" + size + " bytes] " + s);
 						s.storeOneStudent(dout);
 					}
 					else {
@@ -154,15 +152,16 @@ public class ManageStudents {
 						s.address=address;
 						dout.seek(din.getFilePointer()-size);
 						dout.writeBytes("*");
-						avail.add(din.getFilePointer()-size);
+						avail.add(dout.getFilePointer());
+						System.out.println(avail);
 						dout.seek(din.length());
-						System.out.println("[" + size + " bytes] " + s);
 						s.storeOneStudent(dout);
 					}
+
+					System.out.println("[" + size + " bytes] " + s + "is update");
 					dout.close();
 					break;
 					}
-					
 				}
 				
 				//그외
@@ -184,8 +183,4 @@ public class ManageStudents {
 		}
 	}
 
-	private static char charAt(String string) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 }

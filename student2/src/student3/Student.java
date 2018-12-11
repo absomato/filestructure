@@ -1,3 +1,5 @@
+package student3;
+
 import java.io.*;
 import java.util.Scanner;
 
