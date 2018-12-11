@@ -45,7 +45,7 @@ public class Student  {
 		try {
 			byte[] bytes = toString().getBytes("utf-8");
 			
-			if(dout.length()==dout.getFilePointer())dout.writeInt(bytes.length);
+			if(dout.length()==dout.getFilePointer()) dout.writeInt(bytes.length);
 			dout.write(bytes);
 		} catch (UnsupportedEncodingException e) {
 			System.out.println("Unsupported charset");
