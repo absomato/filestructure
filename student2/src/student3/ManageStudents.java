@@ -87,7 +87,7 @@ public class ManageStudents {
 					
 					//s 학번 입력시 출력
 					else if(kk.equals("s")) {
-						if(datas.get(0).contains(name)) {
+						if(name.equals(datas.get(0))) {
 							found=true;
 							if(datas.get(0).contains("*"))System.out.println("deleted data");
 							else System.out.println(s);
@@ -190,13 +190,14 @@ public class ManageStudents {
 			datag.add(datas);
 		}
 		if(kk.equals("i")) {
+			WriteStudents.main(args);
 			input_file=args[2]+"_dat";
 			File in_f2 = new File(input_file);
+			
 			if (!in_f2.exists()) {
 				System.out.println(input_file + " does not exist");
 				System.exit(0);
 			}
-			WriteStudents.main(args);
 			try {
 				RandomAccessFile din = new RandomAccessFile(in_f2, "rw");
 				Student s = new Student();

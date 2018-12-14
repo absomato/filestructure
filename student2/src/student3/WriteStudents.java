@@ -33,10 +33,8 @@ public class WriteStudents {
 			
 			while(in.hasNext()) {
 				s.getStudent(in);
-
-				if(args.length==1)
+				if(s.number.length()==8)s.number=s.number.substring(1, s.number.length());
 				s.writeStudent(out_f);
-				else s.storeOneStudent(out_f);
 			}
 
 			if(args.length==1)
